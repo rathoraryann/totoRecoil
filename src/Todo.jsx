@@ -10,7 +10,7 @@ export default function Todo() {
     const [description, setDescription] = useState('')
     // const [buttonVisible, setButtonVisible] = useState(true)
     const [editingTodoId, setEditingTodoId] = useState(null)
-    const [editing, setEditing] = useState(false)
+    // const [editing, setEditing] = useState(false)
 
 
     const AddTodo = () => {
@@ -33,10 +33,10 @@ export default function Todo() {
     }
 
     function SaveTodo(todo) {
-        if(!todo.title.trim() || !todo.description.trim()){
+        if (!todo.title.trim() || !todo.description.trim()) {
             alert("Please fill all the fields")
-        }else{
-        setEditingTodoId(null)
+        } else {
+            setEditingTodoId(null)
         }
     }
 
@@ -48,7 +48,9 @@ export default function Todo() {
             <input type="text" placeholder="Description" style={{ width: "250px", padding: "7px" }} value={description} onChange={(e) => { setDescription(e.target.value) }} />
 
             <button style={{ width: "75px" }} onClick={AddTodo}>Add Todo</button>
+
             <hr style={{ height: "2px", backgroundColor: "gray", width: "50%", margin: "5px 0px" }} />
+
             <div>Todos</div>
 
             {todos.map((todo) => {
@@ -57,29 +59,37 @@ export default function Todo() {
 
                         {editingTodoId == todo.id ? (
                             <input type="text"
-                                value={todo.title} 
-                                style={{ border: "none", textAlign: "end", fontWeight: 'bold' }} 
+                                value={todo.title}
+                                style={{ border: "none", textAlign: "end", fontWeight: 'bold' }}
                                 onChange={(e) => {
                                     const updatedTitle = { ...todo, title: e.target.value }
-                                    setTodos((prevTodos) => 
+                                    setTodos((prevTodos) =>
                                         prevTodos.map((t) => t.id == todo.id ? updatedTitle : t)
                                     )
                                 }} />
-                            ):(
-                            <input type="text" readOnly={true} value={`${todo.title}:`} style={{ border: "none", textAlign: "end", fontWeight: 'bold' }} />)}
+                        ) : (
+                            <input
+                                type="text"
+                                readOnly={true}
+                                value={`${todo.title}:`}
+                                style={{ border: "none", textAlign: "end", fontWeight: 'bold' }} />)}
+
 
                         {editingTodoId == todo.id ? (
-                            <input 
-                            type="text" 
-                            value={todo.description} 
-                            style={{ border: 'none', textAlign: 'start' }} 
-                            onChange={(e) => {
-                                const updatedDescription = { ...todo, description: e.target.value };
-                                setTodos((prevTodos) => prevTodos.map((t) => t.id === todo.id ? updatedDescription : t));
-                              }} /> 
-                        ):(
-
-                            <input type="text" readOnly={true} value={todo.description} style={{ border: 'none', textAlign: 'start' }} />)}
+                            <input
+                                type="text"
+                                value={todo.description}
+                                style={{ border: 'none', textAlign: 'start' }}
+                                onChange={(e) => {
+                                    const updatedDescription = { ...todo, description: e.target.value };
+                                    setTodos((prevTodos) => prevTodos.map((t) => t.id === todo.id ? updatedDescription : t));
+                                }} />
+                        ) : (
+                            <input
+                                type="text"
+                                readOnly={true}
+                                value={todo.description}
+                                style={{ border: 'none', textAlign: 'start' }} />)}
 
 
 
